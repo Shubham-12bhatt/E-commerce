@@ -1,6 +1,60 @@
+import { useState } from "react";
 import upload_area from "../assets/upload_area.svg";
 
 const Addproduct = () => {
+  const [image, setImage] = useState(false);
+  const [productDetails, setProductDetails] = useState({
+    name: "",
+    image: "",
+    category: "women",
+    new_price: "",
+    old_price : "",
+  })
+  const imageHandler = (e) => {
+    setImage(e.target.files[0]);
+  }
+  const changeHandler = (e) => {
+    setProductDetails({
+      ...productDetails,[e.target.name]:e.target.value
+    })
+  }
+  const add_Product = async (e) => {
+     e.preventDefault();
+    let responseData;
+    let product = productDetails;
+    let formData = new FormData();
+    formData.append('product', image);
+   const res =  await fetch('http://localhost:4000/upload', {
+      method: 'POST',
+      headers: {
+        Accept:'application/json',
+      },
+      body: formData,
+   })
+    const data = await res.json();
+    responseData = data;
+    if (responseData.success) {
+      product.image = responseData.image_url;
+      console.log(product);
+     let res =  await fetch('http://localhost:4000/addproduct', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+     })
+      const data = await res.json();
+      if (data.success) {
+        alert('Product Added');
+      }
+      else {
+        alert('Product failed')
+      }
+    }
+
+}
+
   return (
     <div className="ml-64 p-8">
       {" "}
@@ -16,6 +70,8 @@ const Addproduct = () => {
             Product Title
           </label>
           <input
+            value={productDetails.name}
+            onChange={changeHandler}
             type="text"
             name="name"
             placeholder="Enter product title"
@@ -33,6 +89,7 @@ const Addproduct = () => {
             <div className="relative">
               <span className="absolute left-3 top-2 text-gray-500">$</span>
               <input
+                value={productDetails.old_price} onChange={changeHandler}
                 type="text"
                 name="old_price"
                 placeholder="0.00"
@@ -49,6 +106,8 @@ const Addproduct = () => {
             <div className="relative">
               <span className="absolute left-3 top-2 text-gray-500">$</span>
               <input
+                value={productDetails.new_price}
+                onChange={changeHandler}
                 type="text"
                 name="new_price"
                 placeholder="0.00"
@@ -63,6 +122,8 @@ const Addproduct = () => {
               Product Category
             </label>
             <select
+              value={productDetails.category}
+              onChange={changeHandler}
               name="category"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200 bg-white"
             >
@@ -83,7 +144,7 @@ const Addproduct = () => {
             <div className="space-y-1 text-center">
               <label htmlFor="file-input" className="cursor-pointer">
                 <img
-                  src={upload_area}
+                  src={image?URL.createObjectURL(image):upload_area}
                   alt="Upload area"
                   className="mx-auto h-24 w-24 mb-4"
                 />
@@ -97,7 +158,7 @@ const Addproduct = () => {
                   PNG, JPG, GIF up to 10MB
                 </p>
               </label>
-              <input
+              <input onChange={imageHandler}
                 type="file"
                 name="image"
                 id="file-input"
@@ -109,7 +170,7 @@ const Addproduct = () => {
 
         {/* Submit Button */}
         <div className="pt-4">
-          <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium">
+          <button onClick={add_Product} className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium">
             Add Product
           </button>
         </div>
