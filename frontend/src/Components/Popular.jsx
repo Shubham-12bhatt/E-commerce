@@ -1,8 +1,20 @@
 import { data } from "react-router-dom";
-import data_product from "../assets/data";
 import Item from "./Item";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Popular = () => {
+  const [popular, setPopular] = useState([]);
+  useEffect(() => {
+    const fetchPopular = async()=>{
+    const res = await fetch('http://localhost:4000/popular');
+      const data = await res.json();
+      console.log(data);
+       setPopular(data);
+    }
+    fetchPopular();
+  }, []);
+  
   return (
     <section className="py-16 bg-white">
       <div className=" mx-auto px-4 sm:px-2 lg:px-8">
@@ -14,7 +26,7 @@ const Popular = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mx-30">
-          {data_product.map((item, index) => {
+          {popular.map((item, index) => {
             return (
               <div
                 key={index}

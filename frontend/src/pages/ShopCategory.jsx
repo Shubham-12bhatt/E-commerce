@@ -28,15 +28,16 @@ const ShopCategory = ({ category, banner }) => {
           </p>
 
           {/* Sort Dropdown */}
-          <select className="flex  border-2 border-gray-400 gap-4 cursor-pointer group py-3 pr-2 rounded-2xl px-4">
-            <option className="text-gray-900">Sort by</option>
-            <div className="relative">
-              <RiArrowDropDownLine className="w-4 h-4 transition-transform duration-200 group-hover:scale-110" />
-
-            </div>
-            <option value="asc">(A → Z)</option>
-                <option value="desc">(Z → A)</option>
-          </select>
+<div className="relative flex items-center border-2 border-gray-400 rounded-2xl px-4 py-3 cursor-pointer group">
+  <select className="flex-grow outline-none cursor-pointer pr-6">
+    <option value="">Sort by</option>
+    <option value="asc">(A → Z)</option>
+    <option value="desc">(Z → A)</option>
+  </select>
+  <div className="absolute right-3">
+    <RiArrowDropDownLine className="w-6 h-6 text-gray-600 transition-transform duration-200 group-hover:scale-110" />
+  </div>
+</div>
         </div>
 
         {/* Products Grid */}

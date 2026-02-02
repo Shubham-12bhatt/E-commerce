@@ -1,6 +1,13 @@
-import new_collections from "../assets/new_collections";
+import { useState } from "react";
+
 import Item from "./Item";
+import { useEffect } from "react";
 const Collections = () => {
+  const [new_collections, setNew_collection] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:4000/newcollections').then((res)=> res.json()).then((data)=> setNew_collection(data));
+    
+  },[])
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
