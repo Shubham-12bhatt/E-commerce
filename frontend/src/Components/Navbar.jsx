@@ -110,7 +110,8 @@ const Navbar = () => {
                 </button>
               ) : (
                 <Link
-                  to="/login"
+                    to="/login"
+                      state={{ formType: 'login' }}
                   className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors duration-200 font-medium"
                 >
                   Login
@@ -238,6 +239,7 @@ const Navbar = () => {
           <div className="p-6 border-t space-y-4">
             <Link
               to="/login"
+                state={{ formType: 'login' }}
               onClick={closeSidebar}
               className="block w-full bg-red-500 text-white text-center px-6 py-3 rounded-full hover:bg-red-600 transition-colors duration-200 font-medium"
             >

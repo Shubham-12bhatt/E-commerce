@@ -13,7 +13,7 @@ import ShopCategory from './pages/ShopCategory';
 import Product from './pages/Product';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
-import men_banner from './assets/banner_mens.jpg'
+import men_banner from './assets/banner_mens.png'
 import kid_banner from './assets/banner_kids.png'
 import women_banner from './assets/banner_women.png'
 const App = () => {

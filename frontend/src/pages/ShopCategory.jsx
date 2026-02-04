@@ -1,10 +1,22 @@
 import { RiArrowDropDownLine } from "react-icons/ri";
 import Item from "../Components/Item";
 import { ShopContext } from "../Context/ShopContext";
-import { useContext } from "react";
+import { useContext, useState, useMemo } from "react";
 
 const ShopCategory = ({ category, banner }) => {
   const { all_product } = useContext(ShopContext);
+  const [sort, setSort] = useState("");
+
+  const products = useMemo(() => {
+    const filtered = all_product.filter((item) => item.category === category);
+    if (sort === "asc") {
+      return [...filtered].sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (sort === "desc") {
+      return [...filtered].sort((a, b) => b.name.localeCompare(a.name));
+    }
+    return filtered;
+  }, [all_product, category, sort]);
 
   return (
     <div className="py-8">
@@ -28,39 +40,40 @@ const ShopCategory = ({ category, banner }) => {
           </p>
 
           {/* Sort Dropdown */}
-<div className="relative flex items-center border-2 border-gray-400 rounded-2xl px-4 py-3 cursor-pointer group">
-  <select className="flex-grow outline-none cursor-pointer pr-6">
-    <option value="">Sort by</option>
-    <option value="asc">(A → Z)</option>
-    <option value="desc">(Z → A)</option>
-  </select>
-  <div className="absolute right-3">
-    <RiArrowDropDownLine className="w-6 h-6 text-gray-600 transition-transform duration-200 group-hover:scale-110" />
-  </div>
-</div>
+          <div className="relative flex items-center border-2 border-gray-400 rounded-2xl px-4 py-3 cursor-pointer group">
+            <select
+              className="flex-grow outline-none cursor-pointer pr-6"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="">Sort by</option>
+              <option value="asc">(A → Z)</option>
+              <option value="desc">(Z → A)</option>
+            </select>
+            <div className="absolute right-3">
+              <RiArrowDropDownLine className="w-6 h-6 text-gray-600 transition-transform duration-200 group-hover:scale-110" />
+            </div>
+          </div>
         </div>
 
         {/* Products Grid */}
         <div className="grid lg:mx-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
-          {all_product.map((item, index) => {
-            if (item.category === category) {
-              return (
-                <div
-                  key={index}
-                  className="transform hover:-translate-y-1 transition-transform duration-300"
-                >
-                  <Item
-                    id={item.id}
-                    image={item.image}
-                    name={item.name}
-                    new_price={item.new_price}
-                    old_price={item.old_price}
-                    category={item.category}
-                  />
-                </div>
-              );
-            }
-            return null;
+          {products.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="transform hover:-translate-y-1 transition-transform duration-300"
+              >
+                <Item
+                  id={item.id}
+                  image={item.image}
+                  name={item.name}
+                  new_price={item.new_price}
+                  old_price={item.old_price}
+                  category={item.category}
+                />
+              </div>
+            );
           })}
         </div>
       </div>
