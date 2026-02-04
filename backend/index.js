@@ -6,23 +6,12 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
-const { error } = require('console');
+const connectDB = require('./config/db');
+
+
 
 app.use(express.json());
-
-
 app.use(cors());
-const connectDB = async () => {
-  try {
-    await mongoose.connect(
-      "mongodb+srv://shubham:shubham@cluster0.yhmzooz.mongodb.net/e-commerce"
-    );
-    console.log("MongoDB connected successfully");
-  } catch (error) {
-    console.error("MongoDB connection failed:", error.message);
-  }
-};
-
 connectDB();
 
 app.get("/", (req,res,) => {
@@ -240,10 +229,10 @@ app.post('/login', async (req,res) => {
 //creating end point for new collection
  
 app.get('/newcollections', async (req, res) => {
-  let products = await Product.find({});
-  let newcollections = products.slice(1).slice(-8);
-  console.log("New Collections fetched");
-  res.send(newcollections);
+  let products = await Product.find({}).sort({date : -1}).limit(8);
+  
+  console.log("New Collections fetched ");
+  res.send(products);
 })
 
 //creating endpoint for popular in women section
