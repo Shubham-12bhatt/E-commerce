@@ -7,33 +7,26 @@ const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
 const connectDB = require('./config/db');
-
+const productRouter = require('./routes/product');
+const UserRouter = require('./routes/user');
 
 
 app.use(express.json());
 app.use(cors());
 connectDB();
-
-app.get("/", (req,res,) => {
-  res.send("Express App is running")
-})
-
-//Image storage Engine 
 const storage = multer.diskStorage({
   destination: './upload/images',
   filename: (req, file, cb) => {
     return cb(null,`${file.fieldname}_${Date.now()} ${path.extname(file.originalname)}`);
   }
 })
-
 const upload = multer({
   storage,
 })
 
-//creating upload endpoint for images
-app.use('/images',express.static('upload/images'))
 
 
+app.use('/images', express.static('upload/images'))
 app.post("/upload", upload.single('product'), (req, res) => {
   res.json({
     success: 1,
@@ -41,120 +34,8 @@ app.post("/upload", upload.single('product'), (req, res) => {
     })
 })
 
-
-const Product = mongoose.model("Product", {
-  id: {
-    type: Number,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-    
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  new_price: {
-    type: Number,
-    required: true,
-  },
-  old_price: {
-    type: Number,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now()
-  },
-  available: {
-    type: Boolean,
-    default: true
-  },
-}
-  
-)
-app.post('/addproduct', async (req, res) => {
-  try {
-    let last = await Product.findOne().sort({ id: -1 });
-    let id = last ? last.id + 1 : 1;
-    // let id;
-    // if (products.length > 0) {
-    //   let last_product_array = products.slice(-1);
-    //   let last_product = last_product_array[0];
-    //   id = last_product.id + 1;
-    // }
-    // else {
-    //   id = 1;
-    // }
-    const { name, image, category, new_price, old_price } = req.body;
-    const product = new Product({
-      id, name, image, category, new_price, old_price
-    })
-
-    await product.save();
-    console.log(product);
-    res.json({
-      success: 1,
-      name: name,
-    })
-    
-  }
-  catch(err) {
-    console.log("error while adding product", err);
-  }
-}
-)
-
-app.post('/removeproduct', async (req, res) => {
-  try {
-    await Product.findOneAndDelete({ id: req.body.id });
-    console.log('removed');
-    res.json({
-      success: true,
-      name: req.body.name
-    })
-  }
-  catch (err) {
-    console.log("error while removing product", err);
-  }
-})
-
-
-app.get('/allproducts', async (req, res) => {
-  let products = await Product.find()
-    res.json(products);
-})
-
-
-const Users = mongoose.model('Users', {
-  name: {
-    type: String,
-    
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-    
-  },
-  cartData: {
-    type: Object
-  },
-  date: {
-    type: Date,
-    default: Date.now()
-  }
-
-
-});
+app.use('/products', productRouter);
+app.use('/user',UserRouter);
 
 app.post('/signup', async (req,res) => {
   let check = await Users.findOne({
@@ -226,22 +107,6 @@ app.post('/login', async (req,res) => {
   }
 })
 
-//creating end point for new collection
- 
-app.get('/newcollections', async (req, res) => {
-  let products = await Product.find({}).sort({date : -1}).limit(8);
-  
-  console.log("New Collections fetched ");
-  res.send(products);
-})
-
-//creating endpoint for popular in women section
-app.get('/popular', async (req, res) => {
-  let products = await Product.find({ category: "women" });
-  let popular = products.slice(0, 4);
-  console.log('popular in women fetched');
-  res.send(popular);
-})
 //creating middleware to fetch user
 const fetchUser = async (req, res, next) => {
   const token = req.header('auth-token');
