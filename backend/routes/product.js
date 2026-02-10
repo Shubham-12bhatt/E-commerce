@@ -1,7 +1,10 @@
 const express = require("express");
 const productRouter = express.Router();
 const {addProduct} = require('../controllers/Product')
-const {removeProduct} = require('../controllers/Product')
+const { removeProduct } = require('../controllers/Product')
+const { getAllProducts } = require('../controllers/Product')
+const { getNewCollections } = require('../controllers/Product')
+const { getPopularWomen } = require('../controllers/Product')
 
 
 productRouter.post('/addproduct', addProduct);
