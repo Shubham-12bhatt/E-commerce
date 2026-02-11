@@ -48,7 +48,7 @@ exports.getAllProducts = async (req, res) => {
 exports.getNewCollections = async (req, res) => {
   try {
     let products = await Product.find({}).sort({date : -1}).limit(8);
-    console.log("New Collections fetched ");
+    // console.log("New Collections fetched ");
     res.send(products);
   }
   catch (err) {
@@ -60,7 +60,7 @@ exports.getPopularWomen = async (req, res) => {
     
     let products = await Product.find({ category: "women" });
     let popular = products.slice(0, 4);
-    console.log('popular in women fetched');
+    // console.log('popular in women fetched');
     res.send(popular);
   }
   catch (err) {

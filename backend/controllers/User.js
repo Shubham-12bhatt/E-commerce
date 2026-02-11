@@ -1,5 +1,6 @@
 const Users = require('../models/User');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 exports.signup = async (req, res) => {
   let check = await Users.findOne({
     email: req.body.email
@@ -10,6 +11,8 @@ exports.signup = async (req, res) => {
       errors: "existing user found with same email address"
     })
   }
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   let cart = {};
   for (let i = 0; i < 300; i++) {
     cart[i] = 0;
@@ -17,7 +20,7 @@ exports.signup = async (req, res) => {
   const user = new Users({
     name: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
     cartData: cart,
   })
   await user.save();
@@ -41,7 +44,7 @@ exports.login = async (req, res) => {
     email: req.body.email
   })
   if (user) {
-    const passCompare = req.body.password === user.password;
+    const passCompare = bcrypt.compare(req.body.password, user.password);
     if (passCompare) {
       const data = {
         user: {
