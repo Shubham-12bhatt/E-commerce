@@ -5,8 +5,7 @@ import { useEffect } from "react";
 const Collections = () => {
   const [new_collections, setNew_collection] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:4000/newcollections').then((res)=> res.json()).then((data)=> setNew_collection(data));
-    
+    fetch('http://localhost:4000/products/newcollections').then((res)=> res.json()).then((data)=> setNew_collection(data));
   },[])
   return (
     <section className="py-16 bg-gray-50">

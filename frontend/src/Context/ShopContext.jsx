@@ -20,10 +20,10 @@ const ShopContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState(getDefaultCart());
   
   useEffect(() => {
-   fetch('http://localhost:4000/allproducts').then((res)=> res.json()).then((data)=> setAllProducts(data));
+   fetch('http://localhost:4000/products/allproducts').then((res)=> res.json()).then((data)=> setAllProducts(data));
    
     if (localStorage.getItem('auth-token')) {
-      fetch('http://localhost:400/getcart', {
+      fetch('http://localhost:4000/cart/getcart', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -39,7 +39,7 @@ const ShopContextProvider = ({ children }) => {
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     if (localStorage.getItem('auth-token')) {
-      fetch('http://localhost:4000/addtocart', {
+      fetch('http://localhost:4000/cart/addtocart', {
         method: "POST",
         headers: {
           Accept: 'application/form-data',
@@ -55,7 +55,7 @@ const ShopContextProvider = ({ children }) => {
       ...prev, [id]: prev[id] - 1
     }))
      if (localStorage.getItem('auth-token')) {
-      fetch('http://localhost:4000/removefromcart', {
+      fetch('http://localhost:4000/cart/removefromcart', {
         method: "POST",
         headers: {
           Accept: 'application/form-data',

@@ -23,7 +23,7 @@ const Login = () => {
   const login = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/login", {
+      const res = await fetch("http://localhost:4000/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ const Login = () => {
   const signup = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/signup", {
+      const res = await fetch("http://localhost:4000/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -7,7 +7,7 @@ const Popular = () => {
   const [popular, setPopular] = useState([]);
   useEffect(() => {
     const fetchPopular = async()=>{
-    const res = await fetch('http://localhost:4000/popular');
+    const res = await fetch('http://localhost:4000/products/popular');
       const data = await res.json();
       console.log(data);
        setPopular(data);
