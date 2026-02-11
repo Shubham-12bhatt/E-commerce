@@ -4,7 +4,7 @@ import cross_icon from "../assets/cross_icon.png";
 const ListProduct = () => {
   const [AllProducts, setAllProducts] = useState([]);
   const fetchInfo = async () => {
-    const res = await fetch("http://localhost:4000/allproducts");
+    const res = await fetch("http://localhost:4000/products/allproducts");
     const data = await res.json();
     await setAllProducts(data);
   };
@@ -12,7 +12,7 @@ const ListProduct = () => {
     fetchInfo();
   }, []);
   const remove_product = async (id) => {
-    await fetch('http://localhost:4000/removeproduct', {
+    await fetch('http://localhost:4000/products/removeproduct', {
       method:'POST',
       headers: {
         Accept: 'application/json',
