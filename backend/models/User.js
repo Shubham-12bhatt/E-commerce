@@ -19,7 +19,18 @@ const Users = mongoose.model('Users', {
   date: {
     type: Date,
     default: Date.now()
+  },
+  otp: {
+    type:String
+  },
+  otpExpiry: {
+    type:Date
+  },
+  isVerified: {
+    type:Boolean,
+    default:false
   }
+
 
 
 });

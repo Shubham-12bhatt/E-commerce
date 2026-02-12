@@ -1,3 +1,4 @@
+require("dotenv").config();
 const PORT = 4000;
 const express = require('express');
 const app = express();
@@ -8,6 +9,7 @@ const connectDB = require('./config/db');
 const productRouter = require('./routes/product');
 const UserRouter = require('./routes/user');
 const cartRouter = require('./routes/cart');
+
 
 
 app.use(express.json());
@@ -39,9 +41,9 @@ app.use('/cart', cartRouter);
 
 
 
-app.listen(PORT, (error) => {
+app.listen(process.env.PORT, (error) => {
   if (!error) {
-    console.log("Server running on Port" + PORT)
+    console.log("Server running on Port" + process.env.PORT)
   }
   else {
     console.log("errror while runnig server " + error)
