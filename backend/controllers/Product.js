@@ -4,9 +4,9 @@ exports.addProduct = async (req, res) => {
   try {
     let last = await Product.findOne().sort({ id: -1 });
     let id = last ? last.id + 1 : 1;
-    const { name, image, category, new_price, old_price, rating, reviews } = req.body;
+    const { name, description, image, category, new_price, old_price, rating, reviews } = req.body;
     const product = new Product({
-      id, name, image, category, new_price, old_price, rating, reviews
+      id, name, description, image, category, new_price, old_price, rating, reviews
     })
     await product.save();
     console.log(product);
