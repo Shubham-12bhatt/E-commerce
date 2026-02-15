@@ -1,12 +1,12 @@
 const Product = require('../models/Product');
 
 exports.addProduct = async (req, res) => {
-   try {
+  try {
     let last = await Product.findOne().sort({ id: -1 });
     let id = last ? last.id + 1 : 1;
-    const { name, image, category, new_price, old_price } = req.body;
+    const { name, image, category, new_price, old_price, rating, reviews } = req.body;
     const product = new Product({
-      id, name, image, category, new_price, old_price
+      id, name, image, category, new_price, old_price, rating, reviews
     })
     await product.save();
     console.log(product);
@@ -15,11 +15,11 @@ exports.addProduct = async (req, res) => {
       name: name,
     })
   }
-  catch(err) {
+  catch (err) {
     console.log("error while adding product", err);
   }
 }
-  
+
 exports.removeProduct = async (req, res) => {
   try {
     await Product.findOneAndDelete({ id: req.body.id });
@@ -32,9 +32,9 @@ exports.removeProduct = async (req, res) => {
   catch (err) {
     console.log("error while removing product", err);
   }
-  
+
 }
-    
+
 exports.getAllProducts = async (req, res) => {
   try {
     let products = await Product.find()
@@ -43,11 +43,11 @@ exports.getAllProducts = async (req, res) => {
   catch (err) {
     console.log("error while fetching products", err);
   }
-  
+
 }
 exports.getNewCollections = async (req, res) => {
   try {
-    let products = await Product.find({}).sort({date : -1}).limit(8);
+    let products = await Product.find({}).sort({ date: -1 }).limit(8);
     // console.log("New Collections fetched ");
     res.send(products);
   }
@@ -57,7 +57,7 @@ exports.getNewCollections = async (req, res) => {
 }
 exports.getPopularWomen = async (req, res) => {
   try {
-    
+
     let products = await Product.find({ category: "women" });
     let popular = products.slice(0, 4);
     // console.log('popular in women fetched');

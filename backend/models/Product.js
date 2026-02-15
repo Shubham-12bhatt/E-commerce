@@ -12,7 +12,7 @@ const Product = mongoose.model("Product", {
   image: {
     type: String,
     required: true,
-    
+
   },
   category: {
     type: String,
@@ -34,7 +34,15 @@ const Product = mongoose.model("Product", {
     type: Boolean,
     default: true
   },
+  rating: {
+    type: Number,
+    default: 0
+  },
+  reviews: {
+    type: Number,
+    default: 0
+  }
 }
-  
+
 )
 module.exports = Product;

@@ -5,15 +5,18 @@ const app = express();
 const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
+const passport = require('passport');
+require('./auth/google');
 const connectDB = require('./config/db');
 const productRouter = require('./routes/product');
 const UserRouter = require('./routes/user');
 const cartRouter = require('./routes/cart');
-
+const googleAuthRouter = require("./routes/googleAuth");
 
 
 app.use(express.json());
 app.use(cors());
+app.use(passport.initialize()); 
 connectDB();
 const storage = multer.diskStorage({
   destination: './upload/images',
@@ -37,7 +40,7 @@ app.post("/upload", upload.single('product'), (req, res) => {
 app.use('/products', productRouter);
 app.use('/user',UserRouter);
 app.use('/cart', cartRouter);
-
+app.use('/', googleAuthRouter);
 
 
 
