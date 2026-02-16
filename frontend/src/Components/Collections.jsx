@@ -8,7 +8,7 @@ const Collections = () => {
     fetch('http://localhost:4000/products/newcollections').then((res)=> res.json()).then((data)=> setNew_collection(data));
   },[])
   return (
-    <section className="py-16 bg-gray-50">
+    <section id="new-collections" className="py-16 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">

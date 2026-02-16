@@ -16,6 +16,7 @@ import Login from './pages/Login';
 import men_banner from './assets/banner_mens.png'
 import kid_banner from './assets/banner_kids.png'
 import women_banner from './assets/banner_women.png'
+import GoogleSuccess from './pages/GoogleSuccess';
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -53,8 +54,11 @@ const App = () => {
         {
           path: '/login',
           element: <Login/>,
+        },
+        {
+          path: '/google-success',
+          element: <GoogleSuccess/>,
         }
-
 
       ],
     },

@@ -38,12 +38,12 @@ import p36_img from "./product_36.png";
 let all_product = [
   {
     id: 1,
-    name: "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+    name: "Navy blue quilted faux fur jacket",
     category: "women",
     image: p1_img,
     new_price: 50.0,
     old_price: 80.5,
-    description: "Elegant peplum blouse with flutter sleeves and overlap collar design. Perfect for both casual and formal occasions.",
+    description: "Sophisticated navy blue faux-fur puffer jacket featuring a textured block-quilt design and a high-stand collar for a luxurious winter aesthetic.",
     rating: 4.5,
     reviews: 128
   },

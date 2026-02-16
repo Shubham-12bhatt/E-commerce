@@ -100,7 +100,7 @@ const Navbar = () => {
             <div className="hidden md:flex items-center space-x-6">
               {localStorage.getItem("auth-token") ? (
                 <button
-                  className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors duration-200 font-medium"
+                  className="bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition-colors duration-200 font-medium cursor-pointer"
                   onClick={() => {
                     localStorage.removeItem("auth-token");
                     window.location.replace("/");

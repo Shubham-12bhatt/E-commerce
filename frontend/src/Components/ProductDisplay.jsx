@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { ShopContext } from "../Context/ShopContext";
 
 const ProductDisplay = (props) => {
   const { product } = props;
   const { addToCart } = useContext(ShopContext);
+  const [selectedSize, setSelectedSize] = useState("");
+
   const renderRatingStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
@@ -92,11 +94,12 @@ const ProductDisplay = (props) => {
               {["S", "M", "L", "XL", "XXL"].map((size) => (
                 <button
                   key={size}
-                  className="w-12 h-12 flex items-center justify-center rounded-full
-                  border-2 border-gray-200 text-gray-700 font-medium
-                  hover:border-red-500 hover:text-red-500 
-                  focus:outline-none focus:border-red-500 focus:text-red-500
-                  transition-all duration-200 cursor-pointer"
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-12 h-12 flex items-center justify-center rounded-full
+                  border-2 font-medium transition-all duration-200 cursor-pointer
+                  ${selectedSize === size 
+                    ? 'border-red-500 bg-red-500 text-white' 
+                    : 'border-gray-200 text-gray-700 hover:border-red-500 hover:text-red-500'}`}
                 >
                   {size}
                 </button>
@@ -105,10 +108,14 @@ const ProductDisplay = (props) => {
           </div>
 
           {/* Add to Cart Button */}
-          <button onClick={() => {
-            addToCart(product.id)
-          }
-      }
+          <button 
+            onClick={() => {
+              if (selectedSize) {
+                addToCart(product.id, selectedSize);
+              } else {
+                alert("Please Select Size");
+              }
+            }}
             className="w-full bg-red-500 text-white py-4 rounded-full font-semibold
             hover:bg-red-600 transform transition-all duration-300
             hover:shadow-lg hover:shadow-red-500/30 focus:outline-none
