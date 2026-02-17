@@ -5,10 +5,13 @@ const Addproduct = () => {
   const [image, setImage] = useState(false);
   const [productDetails, setProductDetails] = useState({
     name: "",
+    description: "",
     image: "",
     category: "women",
     new_price: "",
     old_price : "",
+    rating: "",
+    reviews: ""
   })
   const imageHandler = (e) => {
     setImage(e.target.files[0]);
@@ -79,6 +82,8 @@ const Addproduct = () => {
           />
         </div>
 
+       
+
         {/* Price and Category Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Price */}
@@ -116,6 +121,39 @@ const Addproduct = () => {
             </div>
           </div>
 
+          {/* Rating */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Rating (0-5)
+            </label>
+            <input
+              value={productDetails.rating}
+              onChange={changeHandler}
+              type="number"
+              name="rating"
+              min="0"
+              max="5"
+              step="0.1"
+              placeholder="4.5"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+            />
+          </div>
+
+          {/* Reviews */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Reviews Count
+            </label>
+            <input
+              value={productDetails.reviews}
+              onChange={changeHandler}
+              type="number"
+              name="reviews"
+              placeholder="120"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+            />
+          </div>
+
           {/* Category */}
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
@@ -134,7 +172,7 @@ const Addproduct = () => {
             </select>
           </div>
         </div>
-
+      
         {/* Image Upload */}
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-700">
@@ -168,6 +206,19 @@ const Addproduct = () => {
           </div>
         </div>
 
+           {/* Product Description */}
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Product Description
+          </label>
+          <textarea
+            value={productDetails.description}
+            onChange={changeHandler}
+            name="description"
+            placeholder="Enter product description"
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200 resize-y h-32"
+          />
+        </div>
         {/* Submit Button */}
         <div className="pt-4">
           <button onClick={add_Product} className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 font-medium">

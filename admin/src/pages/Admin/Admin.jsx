@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import Addproduct from "../../components/Addproduct";
 import ListProduct from "../../components/ListProduct";
@@ -10,7 +10,7 @@ const Admin = () => {
       <Routes>
         <Route path="/addproduct" element={<Addproduct/>} />
         <Route path="/listproduct" element={<ListProduct/>} />
-        <Route/>
+        <Route path="/" element={<Navigate to="/addproduct" />} />
       </Routes>
     </div>
   );
