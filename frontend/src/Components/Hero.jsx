@@ -9,15 +9,15 @@ import product_5 from '../assets/product_5.png';
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-orange-50/30 to-blue-50/40 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-slate-50 via-orange-50/30 to-blue-50/40 overflow-hidden">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLW9wYWNpdHk9IjAuMDMiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-60"></div>
 
       <div className="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-40 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16 min-h-screen py-20">
+      <div className="container mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 h-auto pt-30 pb-12">
 
           <div className="flex-1 max-w-2xl space-y-8 lg:pr-12">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2 rounded-full shadow-lg border border-orange-100">
@@ -33,7 +33,7 @@ const Hero = () => {
             </div>
 
             <div className="space-y-6">
-              <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-tight">
+              <h1 className="text-6xl sm:text-7xl lg:text-7xl font-bold leading-tight">
                 <span className="block text-gray-900 mb-2">Discover</span>
                 <span className="block text-gray-900 mb-2">Your Perfect</span>
                 <span className="block bg-gradient-to-r from-orange-500 via-red-500 to-pink-500 bg-clip-text text-transparent">
@@ -41,7 +41,7 @@ const Hero = () => {
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-gray-600 max-w-lg leading-relaxed">
+              <p className="text-lg sm:text-lg text-gray-600 max-w-lg leading-relaxed">
                 Explore our curated collection of premium fashion pieces designed for the modern trendsetter. From casual to formal, find everything you need.
               </p>
             </div>
@@ -61,7 +61,7 @@ const Hero = () => {
 
             </div>
 
-            <div className="flex items-center gap-12 pt-8">
+            {/* <div className="flex items-center gap-12 pt-8">
               <div className="text-center">
                 <div className="text-4xl font-bold text-gray-900">500+</div>
                 <div className="text-sm text-gray-600 mt-1">Premium Products</div>
@@ -76,11 +76,11 @@ const Hero = () => {
                 <div className="text-4xl font-bold text-gray-900">4.9★</div>
                 <div className="text-sm text-gray-600 mt-1">Average Rating</div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex-1 relative">
-            <div className="relative w-full max-w-lg mx-auto">
+            <div className="relative w-full max-w-[420px] mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-[3rem] transform rotate-6 scale-105"></div>
 
               <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-[3rem] p-8 shadow-2xl border border-gray-200">
