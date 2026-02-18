@@ -89,7 +89,7 @@ const Footer = () => {
           {/* Copyright */}
           <div className="text-center border-t border-gray-200 pt-8 w-full">
             <p className="text-gray-500">
-              © 2025 SHOPPER. All rights reserved.
+              © 2026 SHOPPER. All rights reserved.
             </p>
           </div>
         </div>

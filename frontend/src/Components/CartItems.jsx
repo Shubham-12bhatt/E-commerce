@@ -9,8 +9,8 @@ const CartItems = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="bg-white rounded-lg shadow-md">
-        {/* Header */}
-        <div className="grid grid-cols-6 gap-4 p-4 bg-gray-50 rounded-t-lg text-gray-700 font-semibold">
+        {/* Header - Hidden on mobile */}
+        <div className="hidden md:grid grid-cols-6 gap-4 p-4 bg-gray-50 rounded-t-lg text-gray-700 font-semibold">
           <p className="col-span-2">Products</p>
           <p>Price</p>
           <p>Quantity</p>
@@ -24,47 +24,64 @@ const CartItems = () => {
               return (
                 <div
                   key={e.id}
-                  className="grid grid-cols-6 gap-4 p-4 items-center hover:bg-gray-50 transition-colors"
+                  className="flex flex-col md:grid md:grid-cols-6 gap-4 p-4 items-center hover:bg-gray-50 transition-colors relative"
                 >
                   {/* Product Image and Name */}
-                  <div className="col-span-2 flex items-center space-x-4">
+                  <div className="col-span-2 flex items-center gap-4 w-full md:w-auto">
                     <img
                       src={e.image}
                       alt={e.name}
                       className="w-20 h-20 object-cover rounded-md"
                     />
-                    <p className="font-medium text-gray-800">{e.name}</p>
+                    <p className="font-medium text-gray-800 text-sm md:text-base flex-1">{e.name}</p>
+                    
+                    {/* Mobile Remove Button - Top Right */}
+                    <button
+                      onClick={() => removeFromCart(e.id)}
+                      className="md:hidden p-2 text-gray-400 hover:text-red-500 transition-colors"
+                    >
+                      <RxCross2 size={20} />
+                    </button>
                   </div>
 
                   {/* Price */}
-                  <p className="text-gray-700">${e.new_price}</p>
+                  <div className="flex justify-between w-full md:w-auto md:block">
+                     <span className="md:hidden text-gray-500">Price:</span>
+                     <p className="text-gray-700">${e.new_price}</p>
+                  </div>
 
                   {/* Quantity */}
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => removeFromCart(e.id)}
-                      className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors"
-                    >
-                      -
-                    </button>
-                    <span className="px-4 py-1 bg-gray-100 rounded">
-                      {cartItems[e.id]}
-                    </span>
-                    <button
-                      onClick={() => addToCart(e.id)}
-                      className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors"
-                    >
-                      +
-                    </button>
+                  <div className="flex justify-between items-center w-full md:w-auto md:block">
+                    <span className="md:hidden text-gray-500">Quantity:</span>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => removeFromCart(e.id)}
+                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors"
+                      >
+                        -
+                      </button>
+                      <span className="px-4 py-1 bg-gray-100 rounded">
+                        {cartItems[e.id]}
+                      </span>
+                      <button
+                        onClick={() => addToCart(e.id)}
+                        className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
 
                   {/* Total */}
-                  <p className="text-gray-700 font-medium">
-                    ${(e.new_price * cartItems[e.id]).toFixed(2)}
-                  </p>
+                  <div className="flex justify-between w-full md:w-auto md:block">
+                    <span className="md:hidden text-gray-500">Total:</span>
+                    <p className="text-gray-700 font-medium">
+                      ${(e.new_price * cartItems[e.id]).toFixed(2)}
+                    </p>
+                  </div>
 
-                  {/* Remove Button */}
-                  <div className="flex justify-center">
+                  {/* Remove Button - Desktop */}
+                  <div className="hidden md:flex justify-center">
                     <button
                       onClick={() => removeFromCart(e.id)}
                       className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full cursor-pointer transition-colors"
@@ -97,7 +114,7 @@ const CartItems = () => {
               <p className="text-green-600 font-semibold">Free</p>
             </div>
             <hr className="border-gray-200" />
-            <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg ">
+            <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-2">
               <h3 className="text-xl font-bold text-gray-800">Total</h3>
               <h3 className="text-xl font-bold text-black-600">${getTotalAmount()}</h3>
             </div>

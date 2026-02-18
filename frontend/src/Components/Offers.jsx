@@ -1,5 +1,5 @@
 import exclusive_image from "../assets/exclusive_image.png";
-
+import { Link } from 'react-router-dom';
 
 const Offers = () => {
   return (
@@ -17,14 +17,14 @@ const Offers = () => {
               ONLY ON BEST SELLERS PRODUCTS
             </p>
 
-            <button
+            <Link to = "/mens"
               className="inline-flex items-center px-6 py-2.5 text-base font-semibold text-white cursor-pointer
               bg-red-500 rounded-full w-fit transform transition-all duration-300 
               hover:bg-red-600 hover:scale-105 hover:shadow-lg
               focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-1 focus:ring-offset-red-500"
             >
               Check Now
-            </button>
+            </Link>
           </div>
 
           {/* Right Image */}

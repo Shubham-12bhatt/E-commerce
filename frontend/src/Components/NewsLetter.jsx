@@ -1,4 +1,18 @@
+import { useState } from "react";
 const NewsLetter = () => {
+  const handleSubscribe = async() => {
+    const res = await fetch("http://localhost:4000/subscribe", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    console.log(data);
+  }
+  const [email, setEmail] = useState("");
+  const [subscribe, setSubscribe] = useState(false);
   return (
     <section className="py-16 bg-gradient-to-b from-pink-300/40 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -14,6 +28,8 @@ const NewsLetter = () => {
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="flex-1 px-6 py-3.5 rounded-full sm:rounded-r-none
                 border border-gray-400 focus:border-pink-500
                 text-gray-900 text-lg outline-none bg-white
@@ -24,9 +40,12 @@ const NewsLetter = () => {
               className="px-8 py-3.5 bg-black text-white font-semibold rounded-full
                 sm:rounded-l-none text-lg transition-all duration-300
                 hover:bg-gray-900 hover:shadow-lg hover:shadow-gray-500/30
-                focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-gray-500 focus:ring-offset-2"
+                focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-gray-500 focus:ring-offset-2" onClick={() => {
+                  setSubscribe(true);
+                  handleSubscribe(email);
+                }}
             >
-              Subscribe
+              {subscribe ? "Subscribed" : "Subscribe"}
             </button>
           </div>
 
