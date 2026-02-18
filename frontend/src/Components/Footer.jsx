@@ -1,4 +1,4 @@
-import footer_logo from "../Assets/logo_big.png";
+import footer_logo from "../assets/logo_big.png";
 import { FaPinterest, FaSquareInstagram, FaWhatsapp } from "react-icons/fa6";
 
 const Footer = () => {

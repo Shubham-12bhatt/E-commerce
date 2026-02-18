@@ -15,13 +15,13 @@ googleAuthRouter.get(
   '/auth/google/callback',
   passport.authenticate('google', {
     session: false,
-    failureRedirect: 'http://localhost:5173/login'
+    failureRedirect: `${process.env.FRONTEND_URL}/login`
   }),
   (req, res) => {
 
     const { token } = req.user;
 
-    res.redirect(`http://localhost:5173/google-success?token=${token}`);
+    res.redirect(`${process.env.FRONTEND_URL}/google-success?token=${token}`);
   }
 );
 
