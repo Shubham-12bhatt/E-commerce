@@ -1,10 +1,10 @@
 require("dotenv").config();
-const PORT = 4000;
 const express = require('express');
 const app = express();
 const multer = require('multer')
 const path = require('path');
 const cors = require('cors');
+const PORT = process.env.PORT || 4000;
 const passport = require('passport');
 require('./auth/google');
 const connectDB = require('./config/db');
@@ -46,9 +46,9 @@ app.use('/subscribe', subscribeRouter);
 
 
 
-app.listen(process.env.PORT, (error) => {
+app.listen(PORT, (error) => {
   if (!error) {
-    console.log("Server running on Port" + process.env.PORT)
+    console.log("Server running on Port" + PORT);
   }
   else {
     console.log("errror while runnig server " + error)
