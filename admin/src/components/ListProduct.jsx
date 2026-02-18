@@ -24,7 +24,7 @@ const ListProduct = () => {
     await fetchInfo();
   }
   return (
-    <div className="ml-64 p-8">
+    <div className="ml-16 md:ml-64 p-4 md:p-8">
       {" "}
       {/* Offset for sidebar */}
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-sm">
@@ -35,8 +35,8 @@ const ListProduct = () => {
           </h1>
         </div>
 
-        {/* Table Header */}
-        <div className="grid grid-cols-12 gap-2 px-6 py-3 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
+        {/* Table Header - Hidden on Mobile */}
+        <div className="hidden md:grid grid-cols-12 gap-2 px-6 py-3 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
           <p className="col-span-2">Products</p>
           <p className="col-span-4">Title</p>
           <p className="col-span-2 text-center">Old Price</p>
@@ -51,54 +51,59 @@ const ListProduct = () => {
             return (
               <div
                 key={index}
-                className="grid grid-cols-12 gap-2 px-6 py-4 items-center hover:bg-gray-50 transition-colors duration-200"
+                className="flex flex-col md:grid md:grid-cols-12 gap-4 md:gap-2 px-6 py-4 items-start md:items-center hover:bg-gray-50 transition-colors duration-200"
               >
                 {/* Product Image */}
-                <div className="col-span-2 flex items-center">
+                <div className="col-span-12 md:col-span-2 flex items-center justify-center md:justify-start">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="h-14 w-14 object-cover rounded-md shadow-sm"
+                    className="h-24 w-24 md:h-14 md:w-14 object-cover rounded-md shadow-sm"
                   />
                 </div>
 
                 {/* Product Title */}
-                <div className="col-span-4">
-                  <p className="text-sm font-medium text-gray-800 line-clamp-2">
+                <div className="col-span-12 md:col-span-4 w-full">
+                  <p className="text-base md:text-sm font-medium text-gray-800 line-clamp-2 text-center md:text-left">
                     {product.name}
                   </p>
                 </div>
 
                 {/* Old Price */}
-                <div className="col-span-2 text-center">
+                <div className="col-span-12 md:col-span-2 w-full flex justify-between md:block text-center">
+                  <span className="md:hidden text-gray-500 text-sm">Old Price:</span>
                   <p className="text-sm text-gray-600">
                     ${product.old_price.toFixed(2)}
                   </p>
                 </div>
 
                 {/* New Price */}
-                <div className="col-span-2 text-center">
+                <div className="col-span-12 md:col-span-2 w-full flex justify-between md:block text-center">
+                  <span className="md:hidden text-gray-500 text-sm">New Price:</span>
                   <p className="text-sm font-medium text-green-600">
                     ${product.new_price.toFixed(2)}
                   </p>
                 </div>
 
                 {/* Category */}
-                <div className="col-span-1 text-center">
+                <div className="col-span-12 md:col-span-1 w-full flex justify-between md:block text-center">
+                  <span className="md:hidden text-gray-500 text-sm">Category:</span>
                   <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded-full capitalize">
                     {product.category}
                   </span>
                 </div>
 
                 {/* Remove Button */}
-                <div className="col-span-1 flex justify-center">
+                <div className="col-span-12 md:col-span-1 w-full flex justify-end md:justify-center">
                   <button
-                    className="p-1.5 hover:bg-red-50 rounded-full transition-colors duration-200 group"
+                    className="p-2 md:p-1.5 hover:bg-red-50 rounded-full transition-colors duration-200 group flex items-center gap-2 md:block"
                     title="Remove Product"
-                  >
-                    <img onClick={() => {
+                    onClick={() => {
                       remove_product(product.id)
                     }}
+                  >
+                    <span className="md:hidden text-red-500 text-sm font-medium">Remove</span>
+                    <img
                       src={cross_icon} 
                       alt="Remove"
                       className="cursor-pointer h-4 w-4 opacity-60 group-hover:opacity-100"

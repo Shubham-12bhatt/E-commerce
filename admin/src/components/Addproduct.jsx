@@ -59,7 +59,7 @@ const Addproduct = () => {
 }
 
   return (
-    <div className="ml-64 p-8">
+    <div className="ml-16 md:ml-64 p-4 md:p-8">
       {" "}
       {/* Offset for sidebar */}
       <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm p-6 space-y-6">
