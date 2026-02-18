@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { API_URL } from "../config";
 const NewsLetter = () => {
   const handleSubscribe = async() => {
-    const res = await fetch("http://localhost:4000/subscribe", {
+    const res = await fetch(`${API_URL}/subscribe`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

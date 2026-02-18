@@ -35,6 +35,7 @@ const Navbar = () => {
     setSidebarOpen(false);
   };
 
+  console.log(import.meta.env.VITE_API_URL);
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">

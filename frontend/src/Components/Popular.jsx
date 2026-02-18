@@ -2,12 +2,12 @@ import { data } from "react-router-dom";
 import Item from "./Item";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import { API_URL } from "../config";
 const Popular = () => {
   const [popular, setPopular] = useState([]);
   useEffect(() => {
     const fetchPopular = async()=>{
-    const res = await fetch('http://localhost:4000/products/popular');
+    const res = await fetch(`${API_URL}/products/popular`);
       const data = await res.json();
       console.log(data);
        setPopular(data);

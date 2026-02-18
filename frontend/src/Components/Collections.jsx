@@ -2,10 +2,11 @@ import { useState } from "react";
 
 import Item from "./Item";
 import { useEffect } from "react";
+import { API_URL } from "../config";
 const Collections = () => {
   const [new_collections, setNew_collection] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:4000/products/newcollections').then((res)=> res.json()).then((data)=> setNew_collection(data));
+    fetch(`${API_URL}/products/newcollections`).then((res)=> res.json()).then((data)=> setNew_collection(data));
   },[])
   return (
     <section id="new-collections" className="py-16 bg-gray-50">

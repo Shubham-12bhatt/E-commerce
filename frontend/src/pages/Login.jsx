@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
+import { API_URL } from "../config";
 const Login = () => {
   const location = useLocation();
   const [state, setState] = useState("Login"); // Changed to 'Login' as default
@@ -37,7 +37,7 @@ const Login = () => {
   const login = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/user/login", {
+      const res = await fetch(`${API_URL}/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Login = () => {
   const signup = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/user/signup", {
+      const res = await fetch(`${API_URL}/user/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const Login = () => {
   const verifyOtp = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:4000/user/otp-verify", {
+      const res = await fetch(`${API_URL}/user/otp-verify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -298,7 +298,7 @@ const Login = () => {
             <button 
               type="button"
               onClick={() => {
-  window.location.href = "http://localhost:4000/auth/google";
+  window.location.href = `${API_URL}/auth/google`;
 }}
 
               className="cursor-pointer w-full flex items-center justify-center gap-3 py-3 px-4 rounded-lg border border-gray-300 bg-white text-gray-700 font-medium hover:bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200"
