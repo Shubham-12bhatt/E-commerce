@@ -17,9 +17,9 @@ const Hero = () => {
       <div className="absolute bottom-20 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
 
       <div className="container mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 h-auto pt-30 pb-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 h-auto pt-30 pb-20">
 
-          <div className="flex-1 max-w-2xl space-y-8 lg:pr-12">
+          <div className="flex-1 max-w-2xl space-y-8 lg:pr-12 -mt-20">
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-5 py-2 rounded-full shadow-lg border border-orange-100">
               <Sparkles className="w-4 h-4 text-orange-500" />
               <span className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
@@ -79,8 +79,8 @@ const Hero = () => {
             </div> */}
           </div>
 
-          <div className="flex-1 relative">
-            <div className="relative w-full max-w-[420px] mx-auto">
+          <div className="flex-1 mt-3 relative">
+            <div className="relative w-full max-w-lg mx-auto">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-pink-400/20 rounded-[3rem] transform rotate-6 scale-105"></div>
 
               <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-[3rem] p-8 shadow-2xl border border-gray-200">
@@ -139,9 +139,6 @@ const Hero = () => {
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 bg-gradient-to-br from-blue-300 to-teal-300 rounded-lg">
-                          {/* <img src={product_16} alt=""
-                           className="w-full h-full object-cover"
-                          /> */}
                         </div>
                         <div className="flex-1">
                           <div className="h-2 bg-gray-300 rounded-full w-2/3 mb-1"></div>
