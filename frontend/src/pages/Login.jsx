@@ -114,6 +114,32 @@ const Login = () => {
     }
   };
 
+  const resendOtp = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/user/resend-otp`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+        }),
+      });
+      const responseData = await res.json();
+      if (responseData.success) {
+        setTimer(180);
+        alert(responseData.message);
+      } else {
+        alert(responseData.errors);
+      }
+    } catch (error) {
+      alert("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -225,6 +251,16 @@ const Login = () => {
                     text-gray-900 outline-none transition-all
                     placeholder:text-gray-400 disabled:bg-gray-100 text-center tracking-widest text-xl"
                   />
+                  {timer === 0 && (
+                    <button
+                      type="button"
+                      onClick={resendOtp}
+                      disabled={loading}
+                      className="mt-2 text-sm text-red-500 hover:text-red-700 font-medium underline float-right disabled:text-gray-400 disabled:cursor-not-allowed cursor-pointer"
+                    >
+                      Resend OTP
+                    </button>
+                  )}
                 </div>
               </div>
             )}

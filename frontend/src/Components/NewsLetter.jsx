@@ -1,19 +1,34 @@
 import { useState } from "react";
-import { API_URL } from "../config";
+import emailjs from "@emailjs/browser";
+
 const NewsLetter = () => {
-  const handleSubscribe = async() => {
-    const res = await fetch(`${API_URL}/subscribe`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-    const data = await res.json();
-    console.log(data);
-  }
   const [email, setEmail] = useState("");
   const [subscribe, setSubscribe] = useState(false);
+
+  const handleSubscribe = async () => {
+    if (!email) return alert("Please enter email");
+
+    const templateParams = {
+      user_email: email,
+    };
+
+    try {
+      const result = await emailjs.send(
+        "service_q9jiclt",     
+        "template_tnwspry",    
+        templateParams,
+        "CjF9vaJCHF7V4TDzf"      
+      );
+
+      console.log(result.text);
+      setSubscribe(true);
+      setEmail("");
+    } catch (error) {
+      console.log(error.text);
+      alert("Failed to send email");
+    }
+  };
+
   return (
     <section className="py-16 bg-gradient-to-b from-pink-300/40 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,19 +53,16 @@ const NewsLetter = () => {
                 placeholder:text-gray-400"
             />
             <button
+              onClick={handleSubscribe}
               className="px-8 py-3.5 bg-black text-white font-semibold rounded-full
                 sm:rounded-l-none text-lg transition-all duration-300
                 hover:bg-gray-900 hover:shadow-lg hover:shadow-gray-500/30
-                focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-gray-500 focus:ring-offset-2" onClick={() => {
-                  setSubscribe(true);
-                  handleSubscribe(email);
-                }}
+                focus:outline-none focus:ring-2 hover:cursor-pointer focus:ring-gray-500 focus:ring-offset-2"
             >
               {subscribe ? "Subscribed" : "Subscribe"}
             </button>
           </div>
 
-          {/* Optional: Add privacy notice */}
           <p className="mt-4 text-sm text-gray-500">
             We care about your data. Read our{" "}
             <a href="#" className="text-red-500 hover:text-red-600 underline">
