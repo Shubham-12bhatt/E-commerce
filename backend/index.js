@@ -12,7 +12,7 @@ const productRouter = require('./routes/product');
 const UserRouter = require('./routes/user');
 const cartRouter = require('./routes/cart');
 const googleAuthRouter = require("./routes/googleAuth");
-const subscribeRouter = require("./routes/subscribe");
+
 
 
 app.use(express.json());
@@ -42,7 +42,6 @@ app.use('/products', productRouter);
 app.use('/user',UserRouter);
 app.use('/cart', cartRouter);
 app.use('/', googleAuthRouter);
-app.use('/subscribe', subscribeRouter);
 
 
 

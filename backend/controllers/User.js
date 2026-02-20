@@ -1,32 +1,56 @@
 const Users = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const transporter = require('../config/mailer');
+const sendEmail = require('../config/mailer');
+
 
 
 exports.signup = async (req, res) => {
   try {
-    let check = await Users.findOne({
+    const existingUser = await Users.findOne({
       email: req.body.email
-    })
-    if (check) {
+    });
+
+    // ✅ Case 1: User exists AND verified
+    if (existingUser && existingUser.isVerified) {
       return res.status(400).json({
         success: false,
-        errors: "existing user found with same email address"
-      })
+        errors: "User already registered. Please login."
+      });
     }
+
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = Date.now() + 3 * 60 * 1000;
+
+    // ✅ Case 2: User exists but NOT verified → resend OTP
+    if (existingUser && !existingUser.isVerified) {
+
+      existingUser.otp = otp;
+      existingUser.otpExpiry = otpExpiry;
+      await existingUser.save();
+
+      await sendEmail({
+        to: existingUser.email,
+        subject: "Verify Your Email Address",
+        text: `Your OTP is: ${otp}`
+      });
+
+      return res.json({
+        success: true,
+        message: "OTP resent successfully"
+      });
+    }
+
+    // ✅ Case 3: New User → Create account
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
     let cart = {};
     for (let i = 0; i < 300; i++) {
       cart[i] = 0;
     }
-
-
-
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpExpiry = Date.now() + 3 * 60 * 1000;
-    console.log("GENERATED OTP:", otp);
 
     const user = new Users({
       name: req.body.username,
@@ -36,33 +60,30 @@ exports.signup = async (req, res) => {
       otp,
       otpExpiry,
       isVerified: false
-    })
+    });
+
     await user.save();
 
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
+    await sendEmail({
       to: req.body.email,
       subject: "Verify Your Email Address",
       text: `Your OTP is: ${otp}`
-    }
-
-
-    await transporter.sendMail(mailOptions);
+    });
 
     res.json({
       success: true,
       message: "OTP sent successfully"
     });
 
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
     res.status(500).json({
       success: false,
       errors: "Internal Server Error"
-    })
+    });
   }
-}
+};
+
 
 exports.otpVerify = async (req, res) => {
   try {
@@ -116,6 +137,52 @@ exports.otpVerify = async (req, res) => {
   }
 }
 
+exports.resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const existingUser = await Users.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(404).json({
+        success: false,
+        errors: "User not found"
+      });
+    }
+
+    if (existingUser.isVerified) {
+      return res.status(400).json({
+        success: false,
+        errors: "User is already verified. Please login."
+      });
+    }
+
+    // Generate new OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const otpExpiry = Date.now() + 3 * 60 * 1000;
+
+    existingUser.otp = otp;
+    existingUser.otpExpiry = otpExpiry;
+    await existingUser.save();
+
+    await sendEmail({
+      to: existingUser.email,
+      subject: "Verify Your Email Address - Resend OTP",
+      text: `Your new OTP is: ${otp}`
+    });
+
+    res.json({
+      success: true,
+      message: "OTP resent successfully"
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      errors: "Internal Server Error"
+    });
+  }
+};
+
 
 
 
@@ -132,34 +199,39 @@ exports.otpVerify = async (req, res) => {
 
 
 exports.login = async (req, res) => {
-  let user = await Users.findOne({
-    email: req.body.email
-  })
-  if (user) {
-    const passCompare = await bcrypt.compare(req.body.password, user.password);
-    if (passCompare) {
-      const data = {
-        user: {
-          id: user.id
-        }
-      }
-      const token = jwt.sign(data, process.env.JWT_SECRET)
-      res.json({
-        success: true,
-        token
-      })
-    }
-    else {
-      res.json({
-        success: false,
-        errors: "Wrong Password"
-      })
-    }
-  }
-  else {
-    res.json({
+  let user = await Users.findOne({ email: req.body.email });
+
+  if (!user) {
+    return res.json({
       success: false,
-      errors: 'Wrong Email-ID'
-    })
+      errors: "Wrong Email-ID"
+    });
   }
-}
+
+  if (!user.isVerified) {
+    return res.json({
+      success: false,
+      errors: "Please verify your email first"
+    });
+  }
+
+  const passCompare = await bcrypt.compare(req.body.password, user.password);
+
+  if (!passCompare) {
+    return res.json({
+      success: false,
+      errors: "Wrong Password"
+    });
+  }
+
+  const data = {
+    user: { id: user.id }
+  };
+
+  const token = jwt.sign(data, process.env.JWT_SECRET);
+
+  res.json({
+    success: true,
+    token
+  });
+};
