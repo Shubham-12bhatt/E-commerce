@@ -1,6 +1,6 @@
 import { useState } from "react";
 import upload_area from "../assets/upload_area.svg";
-
+import { API_URL } from "../../config";
 const Addproduct = () => {
   const [image, setImage] = useState(false);
   const [productDetails, setProductDetails] = useState({
@@ -27,7 +27,7 @@ const Addproduct = () => {
     let product = productDetails;
     let formData = new FormData();
     formData.append('product', image);
-   const res =  await fetch('http://localhost:4000/upload', {
+   const res =  await fetch(`${API_URL}/upload`, {
       method: 'POST',
       headers: {
         Accept:'application/json',
@@ -39,7 +39,7 @@ const Addproduct = () => {
     if (responseData.success) {
       product.image = responseData.image_url;
       console.log(product);
-     let res =  await fetch('http://localhost:4000/products/addproduct', {
+     let res =  await fetch(`${API_URL}/products/addproduct`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
