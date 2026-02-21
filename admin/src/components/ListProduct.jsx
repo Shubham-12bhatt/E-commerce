@@ -7,7 +7,7 @@ const ListProduct = () => {
   const fetchInfo = async () => {
     const res = await fetch(`${API_URL}/products/allproducts`);
     const data = await res.json();
-    await setAllProducts(data);
+    setAllProducts(data.reverse());
   };
   useEffect(() => {
     fetchInfo();

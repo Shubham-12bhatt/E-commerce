@@ -50,6 +50,17 @@ const Addproduct = () => {
       const data = await res.json();
       if (data.success) {
         alert('Product Added');
+        setProductDetails({
+          name: "",
+          description: "",
+          image: "",
+          category: "women",
+          new_price: "",
+          old_price : "",
+          rating: "",
+          reviews: ""
+        });
+        setImage(false);
       }
       else {
         alert('Product failed')
