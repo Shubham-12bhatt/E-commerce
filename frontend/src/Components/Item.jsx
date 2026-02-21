@@ -20,10 +20,10 @@ const Item = (props) => {
       </h3>
       <div className="flex items-center gap-3">
         <span className="text-red-500 font-semibold text-lg">
-          ${props.new_price}
+          Rs. {props.new_price}
         </span>
         <span className="text-gray-500 line-through text-sm">
-          ${props.old_price}
+          Rs. {props.old_price}
         </span>
       </div>
     </div>

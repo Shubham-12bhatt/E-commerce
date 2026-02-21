@@ -75,10 +75,10 @@ const ProductDisplay = (props) => {
           {/* Price */}
           <div className="flex items-center gap-4">
             <span className="text-2xl font-bold text-gray-900">
-              ${product.new_price}
+              Rs. {product.new_price}
             </span>
             <span className="text-lg text-gray-500 line-through">
-              ${product.old_price}
+              Rs. {product.old_price}
             </span>
           </div>
 
@@ -126,7 +126,7 @@ const ProductDisplay = (props) => {
 
           {/* Additional Info */}
           <p className="text-sm text-gray-500">
-            Free shipping on orders over $50
+            Free shipping on orders over Rs. 50
           </p>
         </div>
       </div>

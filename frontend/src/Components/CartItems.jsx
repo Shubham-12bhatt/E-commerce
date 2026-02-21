@@ -47,7 +47,7 @@ const CartItems = () => {
                   {/* Price */}
                   <div className="flex justify-between w-full md:w-auto md:block">
                      <span className="md:hidden text-gray-500">Price:</span>
-                     <p className="text-gray-700">${e.new_price}</p>
+                     <p className="text-gray-700">Rs. {e.new_price}</p>
                   </div>
 
                   {/* Quantity */}
@@ -76,7 +76,7 @@ const CartItems = () => {
                   <div className="flex justify-between w-full md:w-auto md:block">
                     <span className="md:hidden text-gray-500">Total:</span>
                     <p className="text-gray-700 font-medium">
-                      ${(e.new_price * cartItems[e.id]).toFixed(2)}
+                      Rs. {(e.new_price * cartItems[e.id]).toFixed(2)}
                     </p>
                   </div>
 
@@ -106,7 +106,7 @@ const CartItems = () => {
           <div className="space-y-4">
             <div className="flex justify-between items-center py-3">
               <p className="text-gray-600 font-medium">Subtotal</p>
-              <p className="text-lg font-semibold text-gray-600">${getTotalAmount()}</p>
+              <p className="text-lg font-semibold text-gray-600">Rs. {getTotalAmount()}</p>
             </div>
             <hr className="border-gray-200" />
             <div className="flex justify-between items-center py-3">
@@ -116,7 +116,7 @@ const CartItems = () => {
             <hr className="border-gray-200" />
             <div className="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-2">
               <h3 className="text-xl font-bold text-gray-800">Total</h3>
-              <h3 className="text-xl font-bold text-black-600">${getTotalAmount()}</h3>
+              <h3 className="text-xl font-bold text-black-600">Rs. {getTotalAmount()}</h3>
             </div>
             <button className="w-full bg-red-500 cursor-pointer hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg">
               Proceed to Checkout

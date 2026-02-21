@@ -156,7 +156,7 @@ const Hero = () => {
                     </div>
                     <div>
                       <div className="font-semibold text-gray-900 text-sm">Free Shipping</div>
-                      <div className="text-xs text-gray-600">On orders over $50</div>
+                      <div className="text-xs text-gray-600">On orders over Rs. 50</div>
                     </div>
                   </div>
                 </div>
