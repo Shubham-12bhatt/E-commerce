@@ -74,7 +74,7 @@ const ListProduct = () => {
                 <div className="col-span-12 md:col-span-2 w-full flex justify-between md:block text-center">
                   <span className="md:hidden text-gray-500 text-sm">Old Price:</span>
                   <p className="text-sm text-gray-600">
-                    ${product.old_price.toFixed(2)}
+                    Rs. {product.old_price.toFixed(2)}
                   </p>
                 </div>
 
@@ -82,7 +82,7 @@ const ListProduct = () => {
                 <div className="col-span-12 md:col-span-2 w-full flex justify-between md:block text-center">
                   <span className="md:hidden text-gray-500 text-sm">New Price:</span>
                   <p className="text-sm font-medium text-green-600">
-                    ${product.new_price.toFixed(2)}
+                    Rs. {product.new_price.toFixed(2)}
                   </p>
                 </div>
 

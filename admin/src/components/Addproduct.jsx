@@ -103,13 +103,13 @@ const Addproduct = () => {
               Price
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-gray-500">$</span>
+              <span className="absolute left-3 top-2 text-gray-500">Rs.</span>
               <input
                 value={productDetails.old_price} onChange={changeHandler}
                 type="text"
                 name="old_price"
                 placeholder="0.00"
-                className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
               />
             </div>
           </div>
@@ -120,14 +120,14 @@ const Addproduct = () => {
               Offer Price
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-gray-500">$</span>
+              <span className="absolute left-3 top-2 text-gray-500">Rs.</span>
               <input
                 value={productDetails.new_price}
                 onChange={changeHandler}
                 type="text"
                 name="new_price"
                 placeholder="0.00"
-                className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors duration-200"
               />
             </div>
           </div>
